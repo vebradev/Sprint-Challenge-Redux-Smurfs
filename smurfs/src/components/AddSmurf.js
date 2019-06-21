@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 class AddSmurf extends React.Component {
+  state = {
+    errorMsg: null
+  };
+
   componentDidMount() {
     console.log("AddSmurf mounted!");
   }
@@ -11,24 +15,38 @@ class AddSmurf extends React.Component {
   heightRef = React.createRef();
 
   addSmurf = e => {
-      e.preventDefault();
-      const newData = {
-          name: this.nameRef.current.value,
-          age: this.ageRef.current.value,
-          height: this.heightRef.current.value
-      }
+    e.preventDefault();
+    const newData = {
+      name: this.nameRef.current.value,
+      age: this.ageRef.current.value,
+      height: this.heightRef.current.value
+    };
 
-      this.props.addSmurf(newData);
-  }
+    if (newData.name && newData.age && newData.height) {
+      this.nameRef.current.value = null;
+      this.ageRef.current.value = null;
+      this.heightRef.current.value = null;
+      this.setState({ errorMsg: null });
+    } else {
+      this.setState({
+        errorMsg: "Fill all fields."
+      });
+    }
+
+    this.props.addSmurf(newData);
+  };
 
   render() {
     return (
-      <StyledForm>
-        <input type="text" placeholder="Name" ref={this.nameRef} />
-        <input type="number" placeholder="Age" ref={this.ageRef} />
-        <input type="number" placeholder="Height" ref={this.heightRef} />
-        <button onClick={e => this.addSmurf(e)}>Add Smurf</button>
-      </StyledForm>
+      <div>
+        <StyledForm>
+          <input type="text" placeholder="Name" ref={this.nameRef} />
+          <input type="number" placeholder="Age" ref={this.ageRef} />
+          <input type="number" placeholder="Height" ref={this.heightRef} />
+          <button onClick={e => this.addSmurf(e)}>Add Smurf</button>
+        </StyledForm>
+        {this.state.errorMsg ? <StyledP>{this.state.errorMsg}</StyledP> : null}
+      </div>
     );
   }
 }
@@ -92,4 +110,12 @@ const StyledForm = styled.form`
       background-color: #ff9e03;
     }
   }
+`;
+
+const StyledP = styled.p`
+  text-align: center;
+  font-size: 16px;
+  background-color: red;
+  padding: 10px;
+  transition: all 0.3s;
 `;
