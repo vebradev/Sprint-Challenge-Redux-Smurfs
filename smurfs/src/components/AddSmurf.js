@@ -6,10 +6,6 @@ class AddSmurf extends React.Component {
     errorMsg: null
   };
 
-  componentDidMount() {
-    console.log("AddSmurf mounted!");
-  }
-
   nameRef = React.createRef();
   ageRef = React.createRef();
   heightRef = React.createRef();

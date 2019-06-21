@@ -21,7 +21,6 @@ const StyledUl = styled.ul`
 class App extends Component {
   componentDidMount = () => {
     this.props.fetchSmurfs();
-    console.log(this.props);
   };
 
   render() {
