@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledLi = styled.li`
     display: block;
     padding: 20px 20px;
-    margin: 0;
+    margin: 0 0 5px 0;
     font-size: 18px;
     text-align: center;
     border-radius: 4px;

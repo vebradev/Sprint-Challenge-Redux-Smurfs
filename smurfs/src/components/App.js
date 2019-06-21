@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchSmurfs } from "../actions/index";
+import { fetchSmurfs, addSmurf } from "../actions/index";
 import { bindActionCreators } from "redux";
 import styled from "styled-components";
 import Smurf from "../components/Smurf";
+import AddSmurf from "../components/AddSmurf";
 import "./App.css";
 
 const StyledH2 = styled.h2`
@@ -36,6 +37,7 @@ class App extends Component {
             <Smurf smurf={smurf} key={smurf.id} />
           ))}
         </StyledUl>
+        <AddSmurf addSmurf={this.props.addSmurf} />
       </div>
     );
   }
@@ -44,14 +46,16 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     smurfs: state.smurfs,
-    fetchingSmurfs: state.fetchingSmurfs
+    fetchingSmurfs: state.fetchingSmurfs,
+    addingSmurf: state.addingSmurf,
   };
 };
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      fetchSmurfs
+      fetchSmurfs,
+      addSmurf
     },
     dispatch
   );
